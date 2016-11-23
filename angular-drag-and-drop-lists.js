@@ -455,7 +455,8 @@ angular.module('dndLists', [])
        * object needs to be inserted
        */
       function getPlaceholderIndex() {
-        return Array.prototype.indexOf.call(listNode.children, placeholderNode);
+        var parent = placeholderNode.parentNode ? placeholderNode.parentNode.children : listNode.children;
+        return Array.prototype.indexOf.call(parent, placeholderNode);
       }
 
       /**

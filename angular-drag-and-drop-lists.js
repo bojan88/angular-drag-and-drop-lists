@@ -286,13 +286,13 @@ angular.module('dndLists', [])
         }
 
         if (event.target !== listNode) {
-          // Try to find the node direct directly below the list node.
+          // Try to find the node with dnd-draggable attribute or <li> node
           var listItemNode = event.target;
-          while (listItemNode.parentNode !== listNode && listItemNode.parentNode) {
+          while (listItemNode && listItemNode.tagName !== 'LI' && listItemNode.getAttribute && !listItemNode.getAttribute('dnd-draggable') && listItemNode.parentNode) {
             listItemNode = listItemNode.parentNode;
           }
 
-          if (listItemNode.parentNode === listNode && listItemNode !== placeholderNode) {
+          if (listItemNode && listItemNode.getAttribute && listItemNode.getAttribute('dnd-draggable') && listItemNode !== placeholderNode || listItemNode.tagName === 'LI') {
             // If the mouse pointer is in the upper half of the child element,
             // we place it before the child element, otherwise below it.
             if (isMouseInFirstHalf(event, listItemNode)) {

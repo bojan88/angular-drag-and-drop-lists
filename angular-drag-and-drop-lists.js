@@ -296,9 +296,9 @@ angular.module('dndLists', [])
             // If the mouse pointer is in the upper half of the child element,
             // we place it before the child element, otherwise below it.
             if (isMouseInFirstHalf(event, listItemNode)) {
-              listNode.insertBefore(placeholderNode, listItemNode);
+              listItemNode.parentNode.insertBefore(placeholderNode, listItemNode);
             } else {
-              listNode.insertBefore(placeholderNode, listItemNode.nextSibling);
+              listItemNode.parentNode.insertBefore(placeholderNode, listItemNode.nextSibling);
             }
           }
         } else {

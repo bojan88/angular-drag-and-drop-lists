@@ -245,6 +245,7 @@ angular.module('dndLists', [])
       // at the location where the element would be inserted after dropping
       var placeholder = getPlaceholderElement();
       var placeholderNode = placeholder[0];
+      var placeholderParent = placeholder.parent();
       var listNode = element[0];
       placeholder.remove();
 
@@ -274,8 +275,14 @@ angular.module('dndLists', [])
 
         // First of all, make sure that the placeholder is shown
         // This is especially important if the list is empty
-        if (placeholderNode.parentNode != listNode) {
-          element.append(placeholder);
+        if (!placeholderNode.parentNode || placeholderNode.parentNode != placeholderParent[0]) {
+          //placeholderParent[0] will be defined if there was an existing placeholder element
+          //undefined if it's created by the directive
+          if(placeholderParent[0]) {
+            placeholderParent.append(placeholder);
+          } else {
+            element.append(placeholder);
+          }
         }
 
         if (event.target !== listNode) {

@@ -431,14 +431,16 @@ angular.module('dndLists', [])
        * new li element is created.
        */
       function getPlaceholderElement() {
-        var placeholder;
-        angular.forEach(element.children(), function(childNode) {
-          var child = angular.element(childNode);
-          if (child.hasClass('dndPlaceholder')) {
-            placeholder = child;
+        var queue = element.children().toArray();
+        var currentEl;
+        while(queue.length > 0) {
+          currentEl = angular.element(queue.shift());
+          if (currentEl.hasClass('dndPlaceholder')) {
+            return currentEl;
           }
-        });
-        return placeholder || angular.element("<li class='dndPlaceholder'></li>");
+          queue = queue.concat(currentEl.children().toArray());
+        }
+        return angular.element("<li class='dndPlaceholder'></li>");
       }
 
       /**
